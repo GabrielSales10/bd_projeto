@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Venda - Rodoviária Virtual</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #2980b9, #8e44ad);
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            transform: scale(0.9);
+            animation: scaleIn 1s ease forwards;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #f39c12;
+            margin-bottom: 30px;
+            letter-spacing: 5px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #ecf0f1;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            background-color: #2c3e50;
+            color: white;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        input:focus {
+            background-color: #34495e;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #2ecc71;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-4px);
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container {
+            margin: 20px 0;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            input, button {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Cadastro de Venda</h1>
+        <p>Preencha os campos abaixo para cadastrar uma nova venda.</p>
+
+        <!-- Formulário de cadastro -->
+        <form id="cadastroVendaForm">
+            <input type="number" id="onibus_id" placeholder="ID do Ônibus" required><br>
+            <input type="number" id="passageiro_id" placeholder="ID do Passageiro" required><br>
+            <input type="number" id="cidade_partida_id" placeholder="ID da Cidade de Partida" required><br>
+            <input type="number" id="cidade_destino_id" placeholder="ID da Cidade de Destino" required><br>
+            <input type="date" id="data_viagem" required><br>
+            <input type="number" id="numero_assento" placeholder="Número do Assento" required><br>
+            <input type="number" id="preco" placeholder="Preço" required><br>
+            <button type="submit" class="cta-button">Cadastrar Venda</button>
+        </form>
+    </div>
+
+    <script>
+        // Função para enviar os dados do formulário
+        document.getElementById("cadastroVendaForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Impede o envio do formulário tradicional
+
+            // Coleta os dados do formulário
+            const vendaData = {
+                onibus_id: document.getElementById("onibus_id").value,
+                passageiro_id: document.getElementById("passageiro_id").value,
+                cidade_partida_id: document.getElementById("cidade_partida_id").value,
+                cidade_destino_id: document.getElementById("cidade_destino_id").value,
+                data_viagem: document.getElementById("data_viagem").value,
+                numero_assento: document.getElementById("numero_assento").value,
+                preco: document.getElementById("preco").value
+            };
+
+            // Envia os dados para o backend
+            fetch("http://localhost:5000/vendas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(vendaData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id) {
+                    alert("Venda cadastrada com sucesso! ID da venda: " + data.id);
+                    window.location.href = "/"; // Redireciona para a página inicial
+                } else {
+                    alert("Erro ao cadastrar venda: " + data.error);
+                }
+            })
+            .catch(error => {
+                alert("Erro na requisição: " + error);
+            });
+        });
+    </script>
+</body>
+</html>

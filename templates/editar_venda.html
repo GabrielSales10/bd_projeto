@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Venda</title>
+    <link rel="stylesheet" href="/static/styles.css"> <!-- Mantém o mesmo estilo da tela de cadastro -->
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Venda</h2>
+        <form id="formEditarVenda">
+            <input type="hidden" id="venda_id" value="{{ venda.id }}">
+            
+            <label for="onibus_id">Ônibus ID:</label>
+            <input type="text" id="onibus_id" name="onibus_id" value="{{ venda.onibus_id }}" required>
+            
+            <label for="passageiro_id">Passageiro ID:</label>
+            <input type="text" id="passageiro_id" name="passageiro_id" value="{{ venda.passageiro_id }}" required>
+            
+            <label for="cidade_partida_id">Cidade de Partida ID:</label>
+            <input type="text" id="cidade_partida_id" name="cidade_partida_id" value="{{ venda.cidade_partida_id }}" required>
+            
+            <label for="cidade_destino_id">Cidade de Destino ID:</label>
+            <input type="text" id="cidade_destino_id" name="cidade_destino_id" value="{{ venda.cidade_destino_id }}" required>
+            
+            <label for="data_viagem">Data da Viagem:</label>
+            <input type="date" id="data_viagem" name="data_viagem" value="{{ venda.data_viagem }}" required>
+            
+            <label for="numero_assento">Número do Assento:</label>
+            <input type="text" id="numero_assento" name="numero_assento" value="{{ venda.numero_assento }}" required>
+            
+            <label for="preco">Preço:</label>
+            <input type="text" id="preco" name="preco" value="{{ venda.preco }}" required>
+            
+            <button type="submit" class="cta-button">Salvar Alterações</button>
+            <a href="/" class="cta-button cancelar">Cancelar</a>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("formEditarVenda").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const vendaId = document.getElementById("venda_id").value;
+            const dadosVenda = {
+                onibus_id: document.getElementById("onibus_id").value,
+                passageiro_id: document.getElementById("passageiro_id").value,
+                cidade_partida_id: document.getElementById("cidade_partida_id").value,
+                cidade_destino_id: document.getElementById("cidade_destino_id").value,
+                data_viagem: document.getElementById("data_viagem").value,
+                numero_assento: document.getElementById("numero_assento").value,
+                preco: document.getElementById("preco").value
+            };
+
+            fetch(`/editar_venda/${vendaId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dadosVenda)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || "Venda atualizada com sucesso!");
+                window.location.href = "/listar_vendas";
+            })
+            .catch(error => {
+                console.error("Erro ao atualizar venda:", error);
+                alert("Erro ao atualizar venda.");
+            });
+        });
+    </script>
+</body>
+</html>

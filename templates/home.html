@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rodoviária Virtual - Sua Viagem Começa Aqui</title>
+    <style>
+        /* Estilos para a página inicial */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #2980b9, #8e44ad);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+            transform: scale(0.9);
+            animation: scaleIn 1s ease forwards;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: #f39c12;
+            letter-spacing: 5px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        p {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            color: #ecf0f1;
+        }
+
+        .cta-button {
+            padding: 20px 40px;
+            font-size: 1.6em;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+            margin: 10px; /* Espaço entre os botões */
+        }
+
+
+        .cta-button:hover {
+            background-color: #2ecc71;
+            box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .cta-button:active {
+            transform: translateY(2px);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container {
+            margin: 20px 0;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .bus-image {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            transition: transform 0.5s ease;
+        }
+
+        .bus-image:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .cta-button {
+                font-size: 1.2em;
+            }
+
+            .image-container {
+                margin: 10px 0;
+            }
+
+            .bus-image {
+                width: 80%;
+                max-width: 600px;
+                height: auto;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Rodoviária Virtual</h1>
+        <p>Explore opções de viagens de ônibus e cadastre suas vendas com facilidade!</p>
+        
+        <!-- Botão para redirecionar para a página de cadastro -->
+        <a href="/cadastro-venda">
+            <button class="cta-button">Cadastrar Venda</button>
+        </a>
+
+        <a href="/listar_vendas">
+            <button class="cta-button">Listar Vendas</button>
+        </a>
+
+        <!-- <div class="image-container">
+            <img src="{{ url_for('static', filename='images/onibus.png') }}" alt="Ônibus" class="bus-image">
+        </div> -->
+        
+    </div>
+
+</body>
+</html>
